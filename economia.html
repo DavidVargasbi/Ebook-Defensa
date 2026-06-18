@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>eBook Economía y Gestión Financiera · BI Consulting Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1c31;--navy-card:#16273f;--navy-text:#152540;--cream:#efe9e0;
+    --fucsia:#e6175c;--fucsia-deep:#cf1452;--ink:#1a2942;--muted:#737d8c;
+    --muted-cream:#9a9082;--white:#ffffff;--line:#ded6c8;--track:#d8d0c3;--track-dark:#26374f;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#cdc8c0;font-family:'Inter','Segoe UI',Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:30px 0;}
+  .page{width:900px;height:980px;margin:0 auto 34px;position:relative;background:var(--cream);overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:64px 70px 54px;}
+  .page.dark{background:var(--navy);color:#e8e9ec;}
+  .logo{position:absolute;top:64px;right:70px;text-align:right;line-height:1.06;}
+  .logo b{display:block;font-weight:800;font-size:19px;letter-spacing:.3px;}
+  .logo .l1{color:var(--fucsia);}
+  .logo .l2{color:var(--navy-text);}
+  .dark .logo .l2{color:#fff;}
+  .foot{position:absolute;left:70px;right:70px;bottom:34px;border-top:1px solid var(--line);padding-top:13px;display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:1.5px;color:var(--muted-cream);}
+  .dark .foot{border-top:1px solid rgba(255,255,255,.12);color:#6f7b8d;}
+  .foot i{font-style:italic;letter-spacing:.4px;}
+  .eyebrow{color:var(--fucsia);font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;}
+  h1.title{color:var(--navy-text);font-weight:800;font-size:42px;line-height:1.08;letter-spacing:-.5px;max-width:700px;margin-bottom:20px;}
+  .dark h1.title{color:#fff;}
+  .sub{color:var(--muted);font-size:15.5px;line-height:1.6;max-width:675px;}
+  .dark .sub{color:#aeb6c2;}
+  .rule{width:64px;height:4px;background:var(--fucsia);border-radius:3px;margin:22px 0 0;}
+  .pills{display:flex;gap:12px;margin-top:26px;}
+  .pill{border:1.5px solid rgba(255,255,255,.35);color:#cfd5de;border-radius:30px;padding:9px 20px;font-size:13px;font-weight:600;}
+  .pill.on{background:var(--fucsia);border-color:var(--fucsia);color:#fff;}
+  .cover-label{color:var(--fucsia);font-weight:700;font-size:11.5px;letter-spacing:3px;text-transform:uppercase;margin:38px 0 16px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .scard{background:var(--navy-card);border-radius:16px;padding:22px 24px;}
+  .scard.fuc{background:var(--fucsia);}
+  .scard .big{font-weight:800;font-size:32px;line-height:1;margin-bottom:9px;color:#fff;}
+  .scard .big.f{color:var(--fucsia);}
+  .scard.fuc .big{color:#fff;}
+  .scard p{font-size:12.5px;line-height:1.45;color:#9fa8b6;}
+  .scard.fuc p{color:#ffe2ec;}
+  .cover-note{text-align:center;color:#5c6878;font-size:10px;letter-spacing:2px;margin-top:22px;text-transform:uppercase;}
+  .toc{margin-top:38px;}
+  .toc-row{display:flex;align-items:baseline;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);}
+  .toc-row .n{color:var(--fucsia);font-weight:800;font-size:14px;width:24px;}
+  .toc-row .t{color:var(--navy-text);font-weight:700;font-size:18px;flex:1;}
+  .toc-row .d{color:var(--muted);font-size:13px;font-style:italic;text-align:right;}
+  .idea{background:var(--navy);border-radius:18px;padding:30px 34px;margin-top:38px;color:#fff;}
+  .idea .tag{color:var(--fucsia);font-weight:700;font-size:12px;letter-spacing:2.5px;margin-bottom:12px;}
+  .idea p{font-size:20px;font-weight:700;line-height:1.4;}
+  .pcards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px;}
+  .pcard{background:#fff;border-radius:14px;border-left:4px solid var(--fucsia);padding:20px 22px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .pcard .n{color:var(--fucsia);font-weight:800;font-size:13px;letter-spacing:1px;margin-bottom:6px;}
+  .pcard h3{color:var(--navy-text);font-size:17px;font-weight:700;margin-bottom:8px;}
+  .pcard p{color:var(--muted);font-size:13px;line-height:1.5;}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
+  .lcard{background:#fff;border-radius:16px;padding:24px 26px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .lcard .lab{color:var(--fucsia);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+  .lcard .huge{color:var(--fucsia);font-weight:800;font-size:64px;line-height:1;margin:6px 0 12px;}
+  .lcard p{color:var(--muted);font-size:12.5px;line-height:1.5;}
+  .dcard{background:var(--navy);border-radius:16px;padding:24px 26px;color:#fff;}
+  .dcard .huge{color:var(--fucsia);font-weight:800;font-size:38px;line-height:1.05;margin-bottom:12px;}
+  .dcard p{color:#aeb6c2;font-size:13px;line-height:1.55;}
+  .dcard b{color:#fff;}
+  .cols{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;margin-top:28px;}
+  .frente{padding:13px 0;border-bottom:1px solid var(--line);}
+  .frente .h{display:flex;gap:12px;align-items:baseline;}
+  .frente .num{color:var(--fucsia);font-weight:800;font-size:18px;}
+  .frente h4{color:var(--navy-text);font-size:16px;font-weight:700;}
+  .frente p{color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:5px;margin-left:30px;}
+  .sidebox{background:var(--navy);border-radius:18px;padding:28px 30px;color:#fff;}
+  .sidebox .lab{color:var(--fucsia);font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;}
+  .sidebox h3{font-size:19px;font-weight:700;margin-bottom:18px;line-height:1.25;}
+  .sidebox .role{margin-bottom:16px;}
+  .sidebox .role b{display:block;font-size:14px;margin-bottom:3px;}
+  .sidebox .role span{color:#aeb6c2;font-size:12.5px;line-height:1.45;}
+  .sidebox hr{border:none;border-top:1px solid rgba(255,255,255,.12);margin:14px 0;}
+  .steps{margin-top:28px;display:flex;flex-direction:column;gap:14px;}
+  .step{display:grid;grid-template-columns:160px 1fr;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .step .l{padding:20px 22px;border-right:1px solid var(--line);}
+  .step .l .k{color:var(--fucsia);font-weight:700;font-size:10.5px;letter-spacing:2px;margin-bottom:6px;}
+  .step .l .name{color:var(--navy-text);font-weight:800;font-size:16px;line-height:1.15;}
+  .step .r{padding:20px 24px;color:var(--muted);font-size:13px;line-height:1.55;}
+  .step.dark{background:var(--navy);}
+  .step.dark .l{border-right:1px solid rgba(255,255,255,.12);}
+  .step.dark .l .name{color:#fff;}
+  .step.dark .r{color:#aeb6c2;}
+  .objbar{background:#fff;border-radius:16px;padding:22px 28px;margin-top:18px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .objbar .lab{color:var(--fucsia);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+  .objrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;text-align:center;}
+  .objrow .o .v{color:var(--fucsia);font-weight:800;font-size:34px;}
+  .objrow .o p{color:var(--muted);font-size:12px;margin-top:4px;}
+  .note{text-align:center;color:#b3a99a;font-size:9.5px;letter-spacing:1.5px;margin-top:14px;text-transform:uppercase;}
+  .solcard{background:#fff;border-radius:14px;padding:17px 22px;margin-bottom:13px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .solcard .h{display:flex;gap:10px;align-items:baseline;}
+  .solcard .num{color:var(--fucsia);font-weight:800;font-size:18px;}
+  .solcard h4{color:var(--navy-text);font-size:16px;font-weight:700;}
+  .solcard .tag{color:var(--fucsia);font-weight:700;font-size:10.5px;letter-spacing:1.5px;margin:7px 0 7px 28px;}
+  .solcard p{color:var(--muted);font-size:12.5px;line-height:1.5;margin-left:28px;}
+  .bullets{list-style:none;margin:6px 0 0;}
+  .bullets li{position:relative;padding-left:18px;color:#aeb6c2;font-size:12.5px;line-height:1.4;margin-bottom:11px;}
+  .bullets li::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%;background:var(--fucsia);}
+  .barlab{color:var(--fucsia);font-weight:700;font-size:10.5px;letter-spacing:1.5px;margin:6px 0 12px;}
+  .bar{margin-bottom:13px;}
+  .bar .top{display:flex;justify-content:space-between;font-size:12px;color:#cdd4de;margin-bottom:5px;}
+  .bar .track{height:7px;background:var(--track-dark);border-radius:5px;overflow:hidden;}
+  .bar .fill{height:100%;background:var(--fucsia);border-radius:5px;}
+  .bcards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px;}
+  .bcard{background:#fff;border-radius:14px;border-left:4px solid var(--fucsia);padding:18px 22px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .bcard h4{color:var(--navy-text);font-size:16px;font-weight:700;margin-bottom:7px;}
+  .bcard p{color:var(--muted);font-size:12.5px;line-height:1.5;}
+  .avd{background:#fff;border-radius:16px;border-left:4px solid var(--fucsia);padding:22px 26px;margin-top:18px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .avd .lab{color:var(--fucsia);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+  .avd .ttl{color:var(--navy-text);font-weight:700;font-size:16px;margin-bottom:14px;}
+  .dim{margin-bottom:11px;}
+  .dim .top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px;}
+  .dim .top span{color:var(--navy-text);}
+  .dim .top b{color:var(--fucsia);}
+  .dim .track{height:7px;background:var(--track);border-radius:5px;overflow:hidden;}
+  .dim .fill{height:100%;background:var(--fucsia);border-radius:5px;}
+  .closing{border-left:4px solid var(--fucsia);padding:8px 0 8px 18px;margin-top:20px;color:var(--navy-text);font-weight:700;font-size:18px;line-height:1.4;}
+  .ev3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:32px;}
+  .evcard{background:var(--navy);border-radius:16px;padding:24px 22px;color:#fff;}
+  .evcard .v{color:var(--fucsia);font-weight:800;font-size:26px;margin-bottom:10px;}
+  .evcard p{color:#aeb6c2;font-size:12.5px;line-height:1.5;}
+  .casecard{background:#fff;border-radius:16px;padding:26px 30px;margin-top:18px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .casecard h3{color:var(--navy-text);font-size:19px;font-weight:700;margin-bottom:12px;}
+  .casecard p{color:var(--muted);font-size:13.5px;line-height:1.6;}
+  .quote{border-left:4px solid var(--fucsia);padding-left:18px;margin-top:18px;color:var(--navy-text);font-style:italic;font-size:15px;font-weight:600;}
+  .ckicker{display:inline-block;border:1.5px solid rgba(255,255,255,.35);border-radius:30px;padding:8px 20px;font-size:11px;font-weight:700;letter-spacing:3px;color:#cfd5de;margin-bottom:24px;}
+  h1.close{font-weight:800;font-size:40px;line-height:1.12;letter-spacing:-.5px;color:#fff;}
+  h1.close .f{color:var(--fucsia);}
+  .close-sub{color:#aeb6c2;font-size:14.5px;line-height:1.65;max-width:735px;margin-top:20px;}
+  .cstats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:28px;}
+  .cstat{background:var(--navy-card);border-radius:16px;padding:22px 24px;}
+  .cstat.fuc{background:var(--fucsia);}
+  .cstat .v{color:#fff;font-weight:800;font-size:28px;margin-bottom:8px;}
+  .cstat p{color:#9fa8b6;font-size:12px;line-height:1.45;}
+  .cstat.fuc p{color:#ffe2ec;}
+  .cta{background:var(--fucsia);border-radius:14px;padding:22px;text-align:center;margin-top:24px;color:#fff;font-weight:700;font-size:21px;}
+  .cta-opts{text-align:center;color:#9fa8b6;font-size:12px;font-style:italic;margin-top:12px;}
+  .contact{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:24px;}
+  .contact .c .l{color:var(--fucsia);font-weight:700;font-size:10.5px;letter-spacing:2px;margin-bottom:5px;}
+  .contact .c .v{color:#e8e9ec;font-size:13px;}
+  .sources{border-top:1px solid rgba(255,255,255,.12);margin-top:22px;padding-top:14px;}
+  .sources .l{color:var(--fucsia);font-weight:700;font-size:10px;letter-spacing:2px;margin-bottom:7px;}
+  .sources p{color:#7e8a9c;font-size:10px;line-height:1.6;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;margin:0;page-break-after:always;}}
+  @page{size:900px 980px;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- PAGE 01 — COVER -->
+<section class="page dark">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div style="margin-top:58px;"></div>
+  <div style="display:inline-block;background:var(--fucsia);color:#fff;border-radius:30px;padding:9px 22px;font-size:11.5px;font-weight:700;letter-spacing:2.5px;">EBOOK EJECUTIVO · FINANCIERO, PRODUCTIVO Y VIVIENDA</div>
+  <h1 class="title" style="margin-top:24px;">Del core bancario, la DIAN y el RUES a <span style="color:var(--fucsia);">una sola Sala de Mando Económico</span></h1>
+  <p class="sub">Inteligencia de datos para que bancos, superintendencias, ministerios y agencias de fomento anticipen el fraude, el deterioro empresarial y la mala focalización del gasto —y decidan con evidencia.</p>
+  <div class="pills">
+    <div class="pill on">Integración</div>
+    <div class="pill">Inteligencia</div>
+    <div class="pill">Cumplimiento</div>
+  </div>
+  <div class="cover-label">El punto de partida del sector</div>
+  <div class="grid2">
+    <div class="scard fuc"><div class="big">218.000</div><p>Reclamaciones por fraude recibidas por la banca en el primer semestre de 2025 (Asobancaria).</p></div>
+    <div class="scard"><div class="big f">29.453</div><p>Cierres de empresas en el primer trimestre de 2024, un 31% más que el año anterior (Informa Colombia).</p></div>
+    <div class="scard"><div class="big">61,2%</div><p>Déficit habitacional en zonas rurales: 6 de cada 10 hogares (DANE, 2024).</p></div>
+    <div class="scard"><div class="big f">36,6%</div><p>De los colombianos afirma haber sido víctima de fraude en los últimos 12 meses.</p></div>
+  </div>
+  <div class="cover-note">Cifras de fuentes públicas y del sector · ver referencias al final</div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>01</span></div>
+</section>
+
+<!-- PAGE 02 — INDEX -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">En esta edición</div>
+  <h1 class="title">De la información dispersa a la decisión económica con evidencia</h1>
+  <p class="sub">Esta guía recorre, paso a paso, cómo una entidad del sector financiero, productivo o de vivienda puede convertir el core bancario, la DIAN, el RUES, el Sisbén IV y los reportes regulatorios en una capacidad real de anticipar el fraude, el riesgo y la mala focalización.</p>
+  <div class="rule"></div>
+  <div class="toc">
+    <div class="toc-row"><span class="n">01</span><span class="t">La paradoja del dato en la economía</span><span class="d">El costo de no integrar a tiempo</span></div>
+    <div class="toc-row"><span class="n">02</span><span class="t">Necesidades estratégicas más comunes</span><span class="d">Seis frentes de oportunidad</span></div>
+    <div class="toc-row"><span class="n">03</span><span class="t">Cómo responde la inteligencia de datos</span><span class="d">Integrar, automatizar, anticipar</span></div>
+    <div class="toc-row"><span class="n">04</span><span class="t">Soluciones según la necesidad</span><span class="d">Qué capacidad para cada reto</span></div>
+    <div class="toc-row"><span class="n">05</span><span class="t">Impacto en la gestión institucional</span><span class="d">Beneficios concretos</span></div>
+    <div class="toc-row"><span class="n">06</span><span class="t">Evidencia y siguiente paso</span><span class="d">Resultados y cómo empezar</span></div>
+  </div>
+  <div class="idea">
+    <div class="tag">[ LA IDEA CENTRAL ]</div>
+    <p>La paradoja del sector: nunca antes hubo tanto dato disponible, y nunca antes el costo de no integrarlo a tiempo fue tan alto.</p>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>02</span></div>
+</section>
+
+<!-- PAGE 03 — CONTEXT -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">01 · Contexto</div>
+  <h1 class="title">La paradoja del dato en la economía</h1>
+  <p class="sub">La economía produce más datos que nunca —bancos, superintendencias, registros, plataformas tributarias—, pero las decisiones que más afectan el riesgo, la productividad y el desarrollo se siguen tomando con información dispersa y desactualizada.</p>
+  <div class="rule"></div>
+  <div class="pcards">
+    <div class="pcard"><div class="n">01</div><h3>Reacción tardía</h3><p>La transacción fraudulenta ya se ejecutó, la empresa ya cerró o el subsidio ya se asignó mal antes de que el análisis lo advierta.</p></div>
+    <div class="pcard"><div class="n">02</div><h3>Baja trazabilidad</h3><p>Información fragmentada entre core bancario, DIAN, RUES, Sisbén IV, DANE y los reportes a la Superfinanciera.</p></div>
+    <div class="pcard"><div class="n">03</div><h3>Procesos manuales</h3><p>Entre 6 y 10 horas semanales consolidando reportes, validando SARLAFT y conciliando cartera a mano.</p></div>
+    <div class="pcard"><div class="n">04</div><h3>Decisiones sin confianza</h3><p>Reportes en Excel, tardíos e inconsistentes: ni el comité de riesgo ni la junta deciden con seguridad.</p></div>
+  </div>
+  <div class="split" style="grid-template-columns:1fr;margin-top:14px;">
+    <div class="lcard" style="padding:16px 22px;">
+      <div class="lab">Diagnóstico del sector · De la dispersión a la fuente única</div>
+      <svg viewBox="0 0 830 188" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif" style="display:block;max-width:600px;margin:4px auto 0;">
+        <style>
+          .cap{font-size:10px;font-weight:700;letter-spacing:1px;fill:#9a9082}
+          .lbl{font-size:11px;font-weight:700;fill:#152540}
+          .wlbl{font-size:12px;font-weight:800;fill:#fff}
+          .chip{fill:#e7e1d7}
+        </style>
+        <text class="cap" x="6" y="14">ANTES · 10+ FUENTES DISPERSAS</text>
+        <rect class="chip" x="6"   y="26" width="104" height="25" rx="6"/><text class="lbl" x="18" y="43">Core bancario</text>
+        <rect class="chip" x="128" y="34" width="104" height="25" rx="6"/><text class="lbl" x="140" y="51">DIAN</text>
+        <rect class="chip" x="14"  y="70" width="104" height="25" rx="6"/><text class="lbl" x="26" y="87">RUES</text>
+        <rect class="chip" x="132" y="78" width="104" height="25" rx="6"/><text class="lbl" x="144" y="95">Sisbén IV</text>
+        <rect class="chip" x="6"   y="114" width="104" height="25" rx="6"/><text class="lbl" x="18" y="131">DANE</text>
+        <rect class="chip" x="128" y="120" width="104" height="25" rx="6"/><text class="lbl" x="140" y="137">SFC</text>
+        <g stroke="#cabfae" stroke-width="1.4" stroke-dasharray="4 4">
+          <line x1="110" y1="39" x2="128" y2="47"/><line x1="66" y1="51" x2="66" y2="70"/><line x1="110" y1="127" x2="128" y2="133"/>
+        </g>
+        <text x="6" y="172" class="cap" fill="#c0392b">NO SE CRUZAN A TIEMPO</text>
+        <g fill="#e6175c"><path d="M270 86 h34 v-9 l20 13.5 l-20 13.5 v-9 h-34 z"/></g>
+        <text class="cap" x="268" y="66" fill="#e6175c">INTEGRAR</text>
+        <rect x="350" y="50" width="150" height="74" rx="14" fill="#e6175c"/>
+        <text class="wlbl" x="425" y="82" text-anchor="middle">Fuente única</text>
+        <text class="wlbl" x="425" y="100" text-anchor="middle">de verdad</text>
+        <g stroke="#ffffff" stroke-width="2" opacity=".55"><line x1="372" y1="60" x2="478" y2="60"/><line x1="372" y1="114" x2="478" y2="114"/></g>
+        <g fill="#e6175c"><path d="M520 86 h30 v-9 l20 13.5 l-20 13.5 v-9 h-30 z"/></g>
+        <text class="cap" x="600" y="14">SALA DE MANDO</text>
+        <rect x="600" y="26" width="224" height="132" rx="12" fill="#0b1c31"/>
+        <rect x="616" y="42" width="58" height="34" rx="6" fill="#16273f"/><text x="624" y="64" font-size="15" font-weight="800" fill="#e6175c">+85%</text>
+        <rect x="684" y="42" width="58" height="34" rx="6" fill="#16273f"/><text x="692" y="64" font-size="15" font-weight="800" fill="#fff">3,2×</text>
+        <circle cx="784" cy="59" r="17" fill="none" stroke="#26374f" stroke-width="6"/>
+        <circle cx="784" cy="59" r="17" fill="none" stroke="#e6175c" stroke-width="6" stroke-dasharray="80 107" transform="rotate(-90 784 59)"/>
+        <g><rect x="618" y="120" width="14" height="24" rx="2" fill="#e6175c"/><rect x="638" y="108" width="14" height="36" rx="2" fill="#e6175c"/><rect x="658" y="98" width="14" height="46" rx="2" fill="#e6175c"/><rect x="678" y="112" width="14" height="32" rx="2" fill="#e6175c"/></g>
+        <polyline points="712,138 736,124 760,130 784,110 808,116" fill="none" stroke="#7fd4c1" stroke-width="2.5"/>
+      </svg>
+      <p style="margin-top:8px;">Integrar el core bancario, la DIAN, el RUES y el Sisbén IV en <b style="color:#152540">una sola fuente de verdad</b> cierra las islas donde se esconde el fraude: <b style="color:#152540">+218.000 reclamaciones</b> en seis meses.</p>
+    </div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>03</span></div>
+</section>
+
+<!-- PAGE 04 — PRIORITIES -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">02 · Prioridades</div>
+  <h1 class="title">Necesidades estratégicas más comunes</h1>
+  <p class="sub">Seis frentes en los que la inteligencia de datos fortalece la detección de fraude, la supervisión preventiva, el desarrollo productivo y la focalización del gasto.</p>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <div class="frente"><div class="h"><span class="num">1</span><h4>Detección de fraude y SARLAFT</h4></div><p>Identificar transacciones atípicas en tiempo real, antes de que el fraude se consume.</p></div>
+      <div class="frente"><div class="h"><span class="num">2</span><h4>Supervisión preventiva y riesgo</h4></div><p>Exposición consolidada por segmento para el comité de riesgo y la junta directiva.</p></div>
+      <div class="frente"><div class="h"><span class="num">3</span><h4>Deterioro empresarial y fomento</h4></div><p>Anticipar cierres de empresas por sector y región para focalizar el apoyo.</p></div>
+      <div class="frente"><div class="h"><span class="num">4</span><h4>Focalización de subsidios y vivienda</h4></div><p>Evitar duplicidad y mala asignación cruzando Sisbén IV, RUES y catastro.</p></div>
+      <div class="frente"><div class="h"><span class="num">5</span><h4>Automatización del reporte regulatorio</h4></div><p>SARLAFT, Circular Externa 001 de 2025 y entes de control sin digitación manual.</p></div>
+      <div class="frente"><div class="h"><span class="num">6</span><h4>Cumplimiento y trazabilidad</h4></div><p>Habeas Data y certificaciones HITRUST y SOC 2 Tipo II por diseño.</p></div>
+    </div>
+    <div class="sidebox">
+      <div class="lab">Para quién es cada frente</div>
+      <h3>Según el rol en la entidad</h3>
+      <div class="role"><b>Junta directiva y comité de riesgo</b><span>Frentes 1, 2 y 6 — fraude, exposición y cumplimiento.</span></div>
+      <hr>
+      <div class="role"><b>Superintendencias y ministerios</b><span>Frentes 2, 4 y 5 — supervisión, focalización y reporte.</span></div>
+      <hr>
+      <div class="role"><b>Agencias de fomento y cajas</b><span>Frentes 3 y 4 — deterioro empresarial y subsidios.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>04</span></div>
+</section>
+
+<!-- PAGE 05 — MODEL -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">03 · Modelo de respuesta</div>
+  <h1 class="title">Cómo responde la inteligencia de datos</h1>
+  <p class="sub">La transformación ocurre cuando integración, inteligencia y cumplimiento trabajan juntos sobre los sistemas que la entidad ya tiene —sin reemplazarlos.</p>
+  <div class="rule"></div>
+  <div class="steps">
+    <div class="step"><div class="l"><div class="k">PASO 01</div><div class="name">Integrar y centralizar</div></div><div class="r">Databricks (Lakehouse, arquitectura Medallón) y Snowflake (logs inalterables, certificaciones HITRUST y SOC 2 Tipo II) unifican core bancario, DIAN, RUES, Sisbén IV y reportes regulatorios. El core sigue funcionando; lo que cambia es la capacidad de cruzarlos, cumpliendo SARLAFT y la Circular 001.</div></div>
+    <div class="step"><div class="l"><div class="k">PASO 02</div><div class="name">Automatizar y visualizar</div></div><div class="r">Power Automate (con AI Builder) y Azure Data Factory eliminan la digitación y mueven datos al lakehouse regulatorio; Power BI y Azure Synapse entregan tableros por rol conformes a la Ley 1581 y la Circular 001.</div></div>
+    <div class="step dark"><div class="l"><div class="k">PASO 03</div><div class="name">Anticipar con IA</div></div><div class="r">La Sala de Mando Económico: Azure ML (fraude y deterioro), Graph Analytics (cuentas mula, beneficiarios finales) y Azure OpenAI (normativa y balances). La gestión deja de reaccionar y empieza a anticipar.</div></div>
+  </div>
+  <div class="objbar">
+    <div class="lab">Objetivos de referencia del modelo</div>
+    <div class="objrow">
+      <div class="o"><div class="v">+85%</div><p>Cobertura de fuentes integradas</p></div>
+      <div class="o"><div class="v">90 días</div><p>A entregables verificables</p></div>
+      <div class="o"><div class="v">3,2×</div><p>Velocidad del ciclo de reporte</p></div>
+    </div>
+    <div class="note">Metas típicas del modelo · no constituyen resultados garantizados</div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>05</span></div>
+</section>
+
+<!-- PAGE 06 — SOLUTIONS I -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">04 · Soluciones (I)</div>
+  <h1 class="title">Soluciones según la necesidad</h1>
+  <p class="sub">Relación entre cada necesidad de la entidad y la plataforma más adecuada para resolverla.</p>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <div class="solcard"><div class="h"><span class="num">1</span><h4>Fragmentación de datos</h4></div><div class="tag">› DATABRICKS · SNOWFLAKE</div><p>Lakehouse con arquitectura Medallón, logs inalterables y certificaciones HITRUST y SOC 2 Tipo II. Cruza core bancario, DIAN, RUES y Sisbén IV; cumple SARLAFT, Habeas Data y la Circular 001 sin sobrecosto operativo.</p></div>
+      <div class="solcard"><div class="h"><span class="num">2</span><h4>Procesos manuales</h4></div><div class="tag">› POWER AUTOMATE · AZURE DATA FACTORY</div><p>Alertas por evento (umbral de riesgo, inconsistencia Sisbén–RUES) y AI Builder que lee documentos; pipelines que llevan los datos al lakehouse regulatorio a tiempo y sin intervención manual.</p></div>
+      <div class="solcard"><div class="h"><span class="num">3</span><h4>Información dispersa</h4></div><div class="tag">› POWER BI · AZURE SYNAPSE</div><p>Tableros de exposición de riesgo, focalización de subsidios y deterioro empresarial; analítica SQL a escala nacional, conforme con la Ley 1581 y la Circular 001.</p></div>
+    </div>
+    <div class="sidebox">
+      <div class="lab">Qué habilita este bloque</div>
+      <h3>Una lectura ejecutiva en tiempo real</h3>
+      <ul class="bullets">
+        <li>Riesgo, productividad y desarrollo en una sola fuente.</li>
+        <li>Trazabilidad regulatoria de cada dato y reporte.</li>
+        <li>Horas liberadas del reporte manual hacia el análisis.</li>
+        <li>Datasets seguros para compartir con entes de control.</li>
+      </ul>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:16px 0 12px;">
+      <div class="barlab">SALA DE MANDO ECONÓMICO · EJEMPLO</div>
+      <svg viewBox="0 0 300 196" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+        <circle cx="46" cy="52" r="34" fill="none" stroke="#26374f" stroke-width="12"/>
+        <circle cx="46" cy="52" r="34" fill="none" stroke="#e6175c" stroke-width="12" stroke-linecap="round" stroke-dasharray="192 214" transform="rotate(-90 46 52)"/>
+        <text x="46" y="50" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">90%</text>
+        <text x="46" y="66" text-anchor="middle" font-size="8" letter-spacing="1" fill="#aeb6c2">FUENTES</text>
+        <text x="104" y="32" font-size="11" fill="#aeb6c2">Integración</text><text x="286" y="32" text-anchor="end" font-size="14" font-weight="800" fill="#e6175c">90%</text>
+        <line x1="104" y1="42" x2="286" y2="42" stroke="#26374f"/>
+        <text x="104" y="62" font-size="11" fill="#aeb6c2">Automatización</text><text x="286" y="62" text-anchor="end" font-size="14" font-weight="800" fill="#fff">80%</text>
+        <line x1="104" y1="72" x2="286" y2="72" stroke="#26374f"/>
+        <text x="104" y="92" font-size="11" fill="#aeb6c2">Trazabilidad</text><text x="286" y="92" text-anchor="end" font-size="14" font-weight="800" fill="#e6175c">95%</text>
+        <g fill="#e6175c"><rect x="8" y="150" width="20" height="34" rx="2"/><rect x="36" y="138" width="20" height="46" rx="2"/><rect x="64" y="118" width="20" height="66" rx="2"/><rect x="92" y="130" width="20" height="54" rx="2"/></g>
+        <text x="8" y="194" font-size="8" letter-spacing="1" fill="#5f6b7d">EXPOSICIÓN POR SEGMENTO</text>
+        <polyline points="140,182 170,160 200,168 230,140 258,150 288,126" fill="none" stroke="#7fd4c1" stroke-width="2.5"/>
+        <circle cx="288" cy="126" r="3.5" fill="#7fd4c1"/>
+        <text x="140" y="194" font-size="8" letter-spacing="1" fill="#5f6b7d">DETERIORO</text>
+      </svg>
+      <div class="note" style="text-align:left;color:#5f6b7d;margin-top:6px;">Valores de referencia · ilustrativos</div>
+    </div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>06</span></div>
+</section>
+
+<!-- PAGE 07 — SOLUTIONS II -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">04 · Soluciones (II)</div>
+  <h1 class="title">La Sala de Mando Económico</h1>
+  <p class="sub">La capa de IA aplicada cruza riesgo, productividad y desarrollo en una sola interfaz dirigida a comités ejecutivos y juntas directivas.</p>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <div class="solcard"><div class="h"><span class="num">4</span><h4>Fraude y deterioro empresarial</h4></div><div class="tag">› AZURE MACHINE LEARNING</div><p>Detecta transacciones atípicas en milisegundos y anticipa el deterioro empresarial con 3 a 6 meses de adelanto, cruzando comportamiento digital, declaraciones tributarias y dinámica del RUES. La Superfinanciera ya opera con esta lógica (Suptech SARLAFT con IA).</p></div>
+      <div class="solcard"><div class="h"><span class="num">5</span><h4>Redes ocultas</h4></div><div class="tag">› GRAPH ANALYTICS</div><p>Identifica cuentas mula, empresas fachada en cadena, beneficiarios finales y solicitantes de subsidio que comparten domicilio o teléfono. Cruza RUES, DIAN, PILA y Sisbén IV en milisegundos. Indispensable contra el lavado de activos.</p></div>
+      <div class="solcard"><div class="h"><span class="num">6</span><h4>Lenguaje y documentos</h4></div><div class="tag">› AZURE OPENAI (GPT)</div><p>Extrae cláusulas atípicas, lee balances escaneados, procesa normativa y genera borradores de reportes regulatorios. Es la tecnología del Plan de Supervisión Digital de la SFC (sandboxes LaArenera y elHub).</p></div>
+    </div>
+    <div class="sidebox">
+      <div class="lab">Qué fortalece este bloque</div>
+      <h3>De reaccionar a anticipar</h3>
+      <ul class="bullets">
+        <li>Fraude detenido antes de consumarse.</li>
+        <li>Deterioro empresarial visible con meses de adelanto.</li>
+        <li>Redes de lavado y duplicidad reveladas.</li>
+        <li>Normativa y balances procesados en minutos.</li>
+      </ul>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:16px 0 12px;">
+      <div class="barlab">GRAPH ANALYTICS · RED DETECTADA</div>
+      <svg viewBox="0 0 300 188" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+        <g stroke="#3a4a62" stroke-width="1.3">
+          <line x1="34" y1="44" x2="86" y2="30"/><line x1="86" y1="30" x2="150" y2="48"/><line x1="150" y1="48" x2="212" y2="32"/><line x1="212" y1="32" x2="262" y2="54"/>
+          <line x1="34" y1="44" x2="58" y2="96"/><line x1="86" y1="30" x2="120" y2="100"/><line x1="212" y1="32" x2="190" y2="92"/><line x1="262" y1="54" x2="244" y2="112"/>
+          <line x1="58" y1="96" x2="120" y2="100"/><line x1="190" y1="92" x2="244" y2="112"/><line x1="58" y1="96" x2="88" y2="158"/><line x1="190" y1="92" x2="224" y2="166"/><line x1="88" y1="158" x2="158" y2="156"/><line x1="158" y1="156" x2="224" y2="166"/>
+        </g>
+        <g stroke="#e6175c" stroke-width="2.2">
+          <line x1="150" y1="48" x2="120" y2="100"/><line x1="120" y1="100" x2="158" y2="156"/><line x1="150" y1="48" x2="158" y2="156"/>
+        </g>
+        <ellipse cx="143" cy="102" rx="46" ry="74" fill="none" stroke="#e6175c" stroke-width="1.3" stroke-dasharray="5 5" opacity=".7" transform="rotate(8 143 102)"/>
+        <g fill="#243652" stroke="#46587a" stroke-width="1.4">
+          <circle cx="34" cy="44" r="6"/><circle cx="86" cy="30" r="6"/><circle cx="212" cy="32" r="6"/><circle cx="262" cy="54" r="6"/><circle cx="58" cy="96" r="6"/><circle cx="190" cy="92" r="6"/><circle cx="244" cy="112" r="6"/><circle cx="88" cy="158" r="6"/><circle cx="224" cy="166" r="6"/>
+        </g>
+        <g fill="#e6175c">
+          <circle cx="150" cy="48" r="7.5"/><circle cx="120" cy="100" r="7.5"/><circle cx="158" cy="156" r="7.5"/>
+        </g>
+        <circle cx="120" cy="100" r="13" fill="none" stroke="#e6175c" stroke-width="1.2" opacity=".5"/>
+        <circle cx="8" cy="180" r="5" fill="#e6175c"/><text x="20" y="184" font-size="10" fill="#aeb6c2">Cuenta mula</text>
+        <circle cx="140" cy="180" r="5" fill="#243652" stroke="#46587a"/><text x="152" y="184" font-size="10" fill="#aeb6c2">Cliente legítimo</text>
+      </svg>
+      <div class="note" style="text-align:left;color:#5f6b7d;margin-top:6px;">Visualización ilustrativa · cuentas mula y beneficiarios finales</div>
+    </div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>07</span></div>
+</section>
+
+<!-- PAGE 08 — IMPACT -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">05 · Impacto</div>
+  <h1 class="title">Beneficios concretos para la entidad</h1>
+  <p class="sub">La inteligencia de datos transforma la capacidad de decisión económica y de supervisión, no solo la forma de reportar.</p>
+  <div class="rule"></div>
+  <div class="bcards">
+    <div class="bcard"><h4>Fraude detenido a tiempo</h4><p>Transacciones atípicas frenadas en milisegundos, antes de consumarse.</p></div>
+    <div class="bcard"><h4>Tejido empresarial protegido</h4><p>Cierres anticipados por sector y región para focalizar el fomento.</p></div>
+    <div class="bcard"><h4>Subsidios bien focalizados</h4><p>Duplicidad y mala asignación detectadas cruzando Sisbén IV, RUES y catastro.</p></div>
+    <div class="bcard"><h4>Cumplimiento sin sobrecostos</h4><p>Reportes SARLAFT y Circular 001 listos, trazables y verificables.</p></div>
+  </div>
+  <div class="avd">
+    <div class="lab">Antes vs. después · referencia</div>
+    <div class="ttl">Mejora por dimensión</div>
+    <div class="dim"><div class="top"><span>Tiempo de consolidación de reportes</span><b>de 35 → 88</b></div><div class="track"><div class="fill" style="width:88%"></div></div></div>
+    <div class="dim"><div class="top"><span>Trazabilidad regulatoria</span><b>de 40 → 92</b></div><div class="track"><div class="fill" style="width:92%"></div></div></div>
+    <div class="dim"><div class="top"><span>Anticipación de fraude y deterioro</span><b>de 25 → 82</b></div><div class="track"><div class="fill" style="width:82%"></div></div></div>
+    <div class="dim"><div class="top"><span>Calidad del dato</span><b>de 45 → 93</b></div><div class="track"><div class="fill" style="width:93%"></div></div></div>
+    <div class="note" style="text-align:left;">Escala 0–100 · valores ilustrativos de referencia</div>
+  </div>
+  <div class="closing">Anticipar el fraude, proteger el tejido productivo y focalizar el gasto con datos a tiempo.</div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>08</span></div>
+</section>
+
+<!-- PAGE 09 — EVIDENCE -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">06 · Evidencia</div>
+  <h1 class="title">Lo que cambia cuando los datos se integran</h1>
+  <p class="sub">Referencias reales del propio regulador colombiano y de la práctica del sector, aplicables a cualquier entidad.</p>
+  <div class="rule"></div>
+  <div class="ev3">
+    <div class="evcard"><div class="v">SARLAFT con IA</div><p>La Superintendencia Financiera opera supervisión preventiva con IA desde octubre de 2025 (herramienta Suptech).</p></div>
+    <div class="evcard"><div class="v">LaArenera · elHub</div><p>sandboxes del Plan Estratégico de Supervisión Digital de la SFC, con modelos de Azure OpenAI.</p></div>
+    <div class="evcard"><div class="v">3–6 meses</div><p>de anticipación del deterioro empresarial con modelos de Azure ML sobre datos integrados.</p></div>
+  </div>
+  <div class="casecard">
+    <h3>Del Excel disperso a la Sala de Mando</h3>
+    <p>Antes, el comité de riesgo saltaba entre cinco sistemas y esperaba días para una visión consolidada, mientras la transacción fraudulenta ya se había ejecutado. Tras integrar el core bancario, la DIAN, el RUES y el Sisbén IV y desplegar la Sala de Mando Económico, la entidad pasó a vigilar fraude, riesgo y focalización en una sola vista.</p>
+    <div class="quote">"Dejamos de reaccionar al fraude consumado y empezamos a detenerlo antes de que ocurriera."</div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>09</span></div>
+</section>
+
+<!-- PAGE 10 — CLOSE -->
+<section class="page dark">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div style="margin-top:8px;"></div>
+  <div class="ckicker">CIERRE ESTRATÉGICO</div>
+  <h1 class="close">No cambia solo cómo se reporta al regulador.<br><span class="f">Cambia la capacidad de anticipar el desarrollo del país.</span></h1>
+  <p class="close-sub">Integrar el core bancario, la DIAN, el RUES, el Sisbén IV y los reportes regulatorios en una sola Sala de Mando Económico fortalece la detección de fraude, la supervisión preventiva y la focalización del gasto —cumpliendo SARLAFT, Habeas Data y la Circular Externa 001 de 2025. En BI Consulting Lab no llegamos a vender tecnología: construimos, junto a ustedes, la Sala de Mando Económico que su entidad necesita para los próximos diez años.</p>
+  <div class="cstats">
+    <div class="cstat"><div class="v">+85%</div><p>cobertura de fuentes integradas (objetivo del modelo).</p></div>
+    <div class="cstat"><div class="v">90 días</div><p>a entregables verificables (piloto).</p></div>
+    <div class="cstat fuc"><div class="v">+218.000</div><p>fraudes en seis meses. El costo de no integrar los datos a tiempo.</p></div>
+  </div>
+  <div class="cta">Agende su diagnóstico de madurez de datos →</div>
+  <div class="cta-opts">Conversación exploratoria (1 h) · Diagnóstico de madurez de datos · Demostración aplicada a un caso de su entidad.</div>
+  <div class="contact">
+    <div class="c"><div class="l">CORREO</div><div class="v">sales@biconsultinglab.com</div></div>
+    <div class="c"><div class="l">WEB</div><div class="v">www.biconsultinglab.com</div></div>
+    <div class="c"><div class="l">TELÉFONO</div><div class="v">+57 300 912 1854</div></div>
+  </div>
+  <div class="sources">
+    <div class="l">FUENTES</div>
+    <p>Reclamaciones por fraude financiero en el I-2025 y 36,6% de víctimas (Asobancaria). · Cierres de empresas en el I-2024, +31%, y MIPYMES como 79% del empleo (Informa Colombia). · Déficit habitacional 26,8% nacional y 61,2% rural (DANE, 2024). · Supervisión con IA: Suptech SARLAFT, Plan Estratégico de Supervisión Digital y sandboxes LaArenera y elHub (Superintendencia Financiera). · Marco normativo: CONPES 4144, Circular Externa 001 de 2025, SARLAFT, Ley 1581 de Habeas Data y Decreto 620 de 2020; certificaciones HITRUST y SOC 2 Tipo II.</p>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>10</span></div>
+</section>
+
+</body>
+</html>

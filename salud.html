@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>eBook Salud · BI Consulting Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1c31;--navy-card:#16273f;--navy-text:#152540;--cream:#efe9e0;
+    --fucsia:#e6175c;--fucsia-deep:#cf1452;--ink:#1a2942;--muted:#737d8c;
+    --muted-cream:#9a9082;--white:#ffffff;--line:#ded6c8;--track:#d8d0c3;--track-dark:#26374f;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#cdc8c0;font-family:'Inter','Segoe UI',Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:30px 0;}
+  .page{width:900px;height:980px;margin:0 auto 34px;position:relative;background:var(--cream);overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:64px 70px 54px;}
+  .page.dark{background:var(--navy);color:#e8e9ec;}
+  .logo{position:absolute;top:64px;right:70px;text-align:right;line-height:1.06;}
+  .logo b{display:block;font-weight:800;font-size:19px;letter-spacing:.3px;}
+  .logo .l1{color:var(--fucsia);}
+  .logo .l2{color:var(--navy-text);}
+  .dark .logo .l2{color:#fff;}
+  .foot{position:absolute;left:70px;right:70px;bottom:34px;border-top:1px solid var(--line);padding-top:13px;display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:1.5px;color:var(--muted-cream);}
+  .dark .foot{border-top:1px solid rgba(255,255,255,.12);color:#6f7b8d;}
+  .foot i{font-style:italic;letter-spacing:.4px;}
+  .eyebrow{color:var(--fucsia);font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;}
+  h1.title{color:var(--navy-text);font-weight:800;font-size:43px;line-height:1.08;letter-spacing:-.5px;max-width:690px;margin-bottom:20px;}
+  .dark h1.title{color:#fff;}
+  .sub{color:var(--muted);font-size:15.5px;line-height:1.6;max-width:670px;}
+  .dark .sub{color:#aeb6c2;}
+  .rule{width:64px;height:4px;background:var(--fucsia);border-radius:3px;margin:22px 0 0;}
+  .pills{display:flex;gap:12px;margin-top:26px;}
+  .pill{border:1.5px solid rgba(255,255,255,.35);color:#cfd5de;border-radius:30px;padding:9px 20px;font-size:13px;font-weight:600;}
+  .pill.on{background:var(--fucsia);border-color:var(--fucsia);color:#fff;}
+  .cover-label{color:var(--fucsia);font-weight:700;font-size:11.5px;letter-spacing:3px;text-transform:uppercase;margin:42px 0 16px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .scard{background:var(--navy-card);border-radius:16px;padding:22px 24px;}
+  .scard.fuc{background:var(--fucsia);}
+  .scard .big{font-weight:800;font-size:34px;line-height:1;margin-bottom:9px;color:#fff;}
+  .scard .big.f{color:var(--fucsia);}
+  .scard.fuc .big{color:#fff;}
+  .scard p{font-size:12.5px;line-height:1.45;color:#9fa8b6;}
+  .scard.fuc p{color:#ffe2ec;}
+  .cover-note{text-align:center;color:#5c6878;font-size:10px;letter-spacing:2px;margin-top:24px;text-transform:uppercase;}
+  .toc{margin-top:40px;}
+  .toc-row{display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--line);}
+  .toc-row .n{color:var(--fucsia);font-weight:800;font-size:14px;width:24px;}
+  .toc-row .t{color:var(--navy-text);font-weight:700;font-size:18px;flex:1;}
+  .toc-row .d{color:var(--muted);font-size:13px;font-style:italic;text-align:right;}
+  .idea{background:var(--navy);border-radius:18px;padding:30px 34px;margin-top:40px;color:#fff;}
+  .idea .tag{color:var(--fucsia);font-weight:700;font-size:12px;letter-spacing:2.5px;margin-bottom:12px;}
+  .idea p{font-size:20px;font-weight:700;line-height:1.4;}
+  .pcards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px;}
+  .pcard{background:#fff;border-radius:14px;border-left:4px solid var(--fucsia);padding:20px 22px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .pcard .n{color:var(--fucsia);font-weight:800;font-size:13px;letter-spacing:1px;margin-bottom:6px;}
+  .pcard h3{color:var(--navy-text);font-size:17px;font-weight:700;margin-bottom:8px;}
+  .pcard p{color:var(--muted);font-size:13px;line-height:1.5;}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
+  .lcard{background:#fff;border-radius:16px;padding:24px 26px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .lcard .lab{color:var(--fucsia);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+  .lcard .ttl{color:var(--navy-text);font-weight:700;font-size:15px;margin-bottom:6px;}
+  .lcard .huge{color:var(--fucsia);font-weight:800;font-size:64px;line-height:1;margin:6px 0 12px;}
+  .lcard p{color:var(--muted);font-size:12.5px;line-height:1.5;}
+  .dcard{background:var(--navy);border-radius:16px;padding:24px 26px;color:#fff;}
+  .dcard .huge{color:var(--fucsia);font-weight:800;font-size:40px;line-height:1.05;margin-bottom:12px;}
+  .dcard p{color:#aeb6c2;font-size:13px;line-height:1.55;}
+  .dcard b{color:#fff;}
+  .cols{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;margin-top:30px;}
+  .frente{padding:14px 0;border-bottom:1px solid var(--line);}
+  .frente .h{display:flex;gap:12px;align-items:baseline;}
+  .frente .num{color:var(--fucsia);font-weight:800;font-size:18px;}
+  .frente h4{color:var(--navy-text);font-size:16px;font-weight:700;}
+  .frente p{color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:5px;margin-left:30px;}
+  .sidebox{background:var(--navy);border-radius:18px;padding:28px 30px;color:#fff;}
+  .sidebox .lab{color:var(--fucsia);font-weight:700;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;}
+  .sidebox h3{font-size:19px;font-weight:700;margin-bottom:18px;line-height:1.25;}
+  .sidebox .role{margin-bottom:16px;}
+  .sidebox .role b{display:block;font-size:14px;margin-bottom:3px;}
+  .sidebox .role span{color:#aeb6c2;font-size:12.5px;line-height:1.45;}
+  .sidebox hr{border:none;border-top:1px solid rgba(255,255,255,.12);margin:14px 0;}
+  .steps{margin-top:30px;display:flex;flex-direction:column;gap:14px;}
+  .step{display:grid;grid-template-columns:150px 1fr;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .step .l{padding:20px 22px;border-right:1px solid var(--line);}
+  .step .l .k{color:var(--fucsia);font-weight:700;font-size:10.5px;letter-spacing:2px;margin-bottom:6px;}
+  .step .l .name{color:var(--navy-text);font-weight:800;font-size:16px;line-height:1.15;}
+  .step .r{padding:20px 24px;color:var(--muted);font-size:13px;line-height:1.55;}
+  .step.dark{background:var(--navy);}
+  .step.dark .l{border-right:1px solid rgba(255,255,255,.12);}
+  .step.dark .l .name{color:#fff;}
+  .step.dark .r{color:#aeb6c2;}
+  .objbar{background:#fff;border-radius:16px;padding:24px 28px;margin-top:18px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .objbar .lab{color:var(--fucsia);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;}
+  .objrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;text-align:center;}
+  .objrow .o .v{color:var(--fucsia);font-weight:800;font-size:36px;}
+  .objrow .o p{color:var(--muted);font-size:12px;margin-top:4px;}
+  .note{text-align:center;color:#b3a99a;font-size:9.5px;letter-spacing:1.5px;margin-top:16px;text-transform:uppercase;}
+  .solcard{background:#fff;border-radius:14px;padding:18px 22px;margin-bottom:14px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .solcard .h{display:flex;gap:10px;align-items:baseline;}
+  .solcard .num{color:var(--fucsia);font-weight:800;font-size:18px;}
+  .solcard h4{color:var(--navy-text);font-size:16px;font-weight:700;}
+  .solcard .tag{color:var(--fucsia);font-weight:700;font-size:10.5px;letter-spacing:1.5px;margin:7px 0 7px 28px;}
+  .solcard p{color:var(--muted);font-size:12.5px;line-height:1.5;margin-left:28px;}
+  .bullets{list-style:none;margin:6px 0 0;}
+  .bullets li{position:relative;padding-left:18px;color:#aeb6c2;font-size:12.5px;line-height:1.4;margin-bottom:11px;}
+  .bullets li::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%;background:var(--fucsia);}
+  .barlab{color:var(--fucsia);font-weight:700;font-size:10.5px;letter-spacing:1.5px;margin:6px 0 12px;}
+  .bar{margin-bottom:13px;}
+  .bar .top{display:flex;justify-content:space-between;font-size:12px;color:#cdd4de;margin-bottom:5px;}
+  .bar .track{height:7px;background:var(--track-dark);border-radius:5px;overflow:hidden;}
+  .bar .fill{height:100%;background:var(--fucsia);border-radius:5px;}
+  .bcards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px;}
+  .bcard{background:#fff;border-radius:14px;border-left:4px solid var(--fucsia);padding:18px 22px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .bcard h4{color:var(--navy-text);font-size:16px;font-weight:700;margin-bottom:7px;}
+  .bcard p{color:var(--muted);font-size:12.5px;line-height:1.5;}
+  .avd{background:#fff;border-radius:16px;border-left:4px solid var(--fucsia);padding:22px 26px;margin-top:18px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .avd .lab{color:var(--fucsia);font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+  .avd .ttl{color:var(--navy-text);font-weight:700;font-size:16px;margin-bottom:14px;}
+  .dim{margin-bottom:11px;}
+  .dim .top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px;}
+  .dim .top span{color:var(--navy-text);}
+  .dim .top b{color:var(--fucsia);}
+  .dim .track{height:7px;background:var(--track);border-radius:5px;overflow:hidden;}
+  .dim .fill{height:100%;background:var(--fucsia);border-radius:5px;}
+  .closing{border-left:4px solid var(--fucsia);padding:8px 0 8px 18px;margin-top:22px;color:var(--navy-text);font-weight:700;font-size:18px;line-height:1.4;}
+  .ev3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:32px;}
+  .evcard{background:var(--navy);border-radius:16px;padding:24px 22px;color:#fff;}
+  .evcard .v{color:var(--fucsia);font-weight:800;font-size:30px;margin-bottom:10px;}
+  .evcard p{color:#aeb6c2;font-size:12.5px;line-height:1.5;}
+  .casecard{background:#fff;border-radius:16px;padding:26px 30px;margin-top:18px;box-shadow:0 6px 18px rgba(20,30,50,.05);}
+  .casecard h3{color:var(--navy-text);font-size:19px;font-weight:700;margin-bottom:12px;}
+  .casecard p{color:var(--muted);font-size:13.5px;line-height:1.6;}
+  .quote{border-left:4px solid var(--fucsia);padding-left:18px;margin-top:18px;color:var(--navy-text);font-style:italic;font-size:15px;font-weight:600;}
+  .ckicker{display:inline-block;border:1.5px solid rgba(255,255,255,.35);border-radius:30px;padding:8px 20px;font-size:11px;font-weight:700;letter-spacing:3px;color:#cfd5de;margin-bottom:26px;}
+  h1.close{font-weight:800;font-size:42px;line-height:1.12;letter-spacing:-.5px;color:#fff;}
+  h1.close .f{color:var(--fucsia);}
+  .close-sub{color:#aeb6c2;font-size:15px;line-height:1.65;max-width:730px;margin-top:20px;}
+  .cstats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:30px;}
+  .cstat{background:var(--navy-card);border-radius:16px;padding:22px 24px;}
+  .cstat.fuc{background:var(--fucsia);}
+  .cstat .v{color:#fff;font-weight:800;font-size:30px;margin-bottom:8px;}
+  .cstat p{color:#9fa8b6;font-size:12px;line-height:1.45;}
+  .cstat.fuc p{color:#ffe2ec;}
+  .cta{background:var(--fucsia);border-radius:14px;padding:22px;text-align:center;margin-top:26px;color:#fff;font-weight:700;font-size:21px;}
+  .cta-opts{text-align:center;color:#9fa8b6;font-size:12px;font-style:italic;margin-top:12px;}
+  .contact{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:26px;}
+  .contact .c .l{color:var(--fucsia);font-weight:700;font-size:10.5px;letter-spacing:2px;margin-bottom:5px;}
+  .contact .c .v{color:#e8e9ec;font-size:13px;}
+  .sources{border-top:1px solid rgba(255,255,255,.12);margin-top:24px;padding-top:14px;}
+  .sources .l{color:var(--fucsia);font-weight:700;font-size:10px;letter-spacing:2px;margin-bottom:7px;}
+  .sources p{color:#7e8a9c;font-size:10px;line-height:1.6;}
+  @media print{body{background:#fff;padding:0;}.page{box-shadow:none;margin:0;page-break-after:always;}}
+  @page{size:900px 980px;margin:0;}
+</style>
+</head>
+<body>
+
+<!-- PAGE 01 — COVER -->
+<section class="page dark">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div style="margin-top:60px;"></div>
+  <div style="display:inline-block;background:var(--fucsia);color:#fff;border-radius:30px;padding:9px 22px;font-size:11.5px;font-weight:700;letter-spacing:2.5px;">EBOOK EJECUTIVO · IPS, EPS, CLÍNICAS Y HOSPITALES</div>
+  <h1 class="title" style="margin-top:24px;">De la historia clínica, el ERP y la facturación a <span style="color:var(--fucsia);">una sola fuente de verdad clínica y financiera</span></h1>
+  <p class="sub">Inteligencia de datos para que la dirección médica, la financiera y el comité directivo anticipen el riesgo del paciente, controlen la cartera y las glosas, y decidan con evidencia.</p>
+  <div class="pills">
+    <div class="pill on">Centralización</div>
+    <div class="pill">Automatización</div>
+    <div class="pill">Inteligencia</div>
+  </div>
+  <div class="cover-label">El punto de partida del sector</div>
+  <div class="grid2">
+    <div class="scard fuc"><div class="big">$25 B</div><p>Deuda del sistema de salud en Colombia; más de la mitad está en mora (Supersalud · MinSalud).</p></div>
+    <div class="scard"><div class="big f">+470.000</div><p>Pacientes fallecidos a quienes se facturó, detectados por cruce de datos (ADRES).</p></div>
+    <div class="scard"><div class="big">6–10 h</div><p>Semanales por equipo en tareas manuales: RIPS, glosas, MIPRES y reportes.</p></div>
+    <div class="scard"><div class="big f">10+</div><p>Fuentes que no conversan: HCE, ERP, facturación, farmacia, MIPRES, RIPS.</p></div>
+  </div>
+  <div class="cover-note">Cifras de fuentes públicas y del sector · ver referencias al final</div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>01</span></div>
+</section>
+
+<!-- PAGE 02 — INDEX -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">En esta edición</div>
+  <h1 class="title">De la información dispersa a la decisión clínica y financiera con evidencia</h1>
+  <p class="sub">Esta guía recorre, paso a paso, cómo una institución de salud puede convertir su historia clínica electrónica, el ERP financiero, la facturación, la farmacia, MIPRES y los RIPS en una capacidad real de cuidar al paciente, sostener la cartera y cumplir a tiempo.</p>
+  <div class="rule"></div>
+  <div class="toc">
+    <div class="toc-row"><span class="n">01</span><span class="t">El nuevo reto de la gestión en salud</span><span class="d">El costo de gestionar sin visibilidad</span></div>
+    <div class="toc-row"><span class="n">02</span><span class="t">Necesidades estratégicas más comunes</span><span class="d">Seis frentes de oportunidad</span></div>
+    <div class="toc-row"><span class="n">03</span><span class="t">Cómo responde la inteligencia de datos</span><span class="d">Centralizar, automatizar, anticipar</span></div>
+    <div class="toc-row"><span class="n">04</span><span class="t">Soluciones según la necesidad</span><span class="d">Qué capacidad para cada reto</span></div>
+    <div class="toc-row"><span class="n">05</span><span class="t">Impacto en la gestión institucional</span><span class="d">Beneficios concretos</span></div>
+    <div class="toc-row"><span class="n">06</span><span class="t">Evidencia y siguiente paso</span><span class="d">Resultados y cómo empezar</span></div>
+  </div>
+  <div class="idea" style="margin-top:28px;">
+    <div class="tag">[ LA IDEA CENTRAL ]</div>
+    <p>La inteligencia de datos no cambia solo cómo se reporta a la Supersalud o a la ADRES. Cambia cómo se cuida al paciente y cómo se sostiene financieramente la institución.</p>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>02</span></div>
+</section>
+
+<!-- PAGE 03 — CONTEXT -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">01 · Contexto</div>
+  <h1 class="title">El nuevo reto de la gestión en salud</h1>
+  <p class="sub">Cuando la historia clínica, la facturación, la cartera y los reportes regulatorios viven en sistemas que no conversan, la institución pierde visibilidad: el seguimiento se vuelve reactivo y las decisiones —y los reportes— llegan tarde.</p>
+  <div class="rule"></div>
+  <div class="pcards">
+    <div class="pcard"><div class="n">01</div><h3>Seguimiento tardío</h3><p>El paciente crónico reingresa o la cuenta se devuelve antes de que el reporte que lo anticipaba llegue al comité directivo.</p></div>
+    <div class="pcard"><div class="n">02</div><h3>Baja trazabilidad</h3><p>Información fragmentada entre HCE, ERP, facturación, farmacia, MIPRES y RIPS, que limita el control clínico y financiero.</p></div>
+    <div class="pcard"><div class="n">03</div><h3>Decisiones reactivas</h3><p>Entender una glosa o un riesgo clínico exige pedir cinco reportes a cinco áreas y esperar dos semanas.</p></div>
+    <div class="pcard"><div class="n">04</div><h3>Cartera sin anticipación</h3><p>Sin alertas tempranas, las glosas, la mora y los reingresos aparecen sin previo aviso.</p></div>
+  </div>
+  <div class="split" style="grid-template-columns:1fr;margin-top:14px;">
+    <div class="lcard" style="padding:16px 22px;">
+      <div class="lab">Diagnóstico del sector · De la dispersión a la fuente única</div>
+      <svg viewBox="0 0 830 188" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif" style="display:block;max-width:600px;margin:4px auto 0;">
+        <style>
+          .cap{font-size:10px;font-weight:700;letter-spacing:1px;fill:#9a9082}
+          .lbl{font-size:11px;font-weight:700;fill:#152540}
+          .wlbl{font-size:12px;font-weight:800;fill:#fff}
+          .chip{fill:#e7e1d7}
+        </style>
+        <text class="cap" x="6" y="14">ANTES · 10+ FUENTES DISPERSAS</text>
+        <rect class="chip" x="6"   y="26" width="104" height="25" rx="6"/><text class="lbl" x="18" y="43">HCE</text>
+        <rect class="chip" x="128" y="34" width="104" height="25" rx="6"/><text class="lbl" x="140" y="51">ERP</text>
+        <rect class="chip" x="14"  y="70" width="104" height="25" rx="6"/><text class="lbl" x="26" y="87">Facturación</text>
+        <rect class="chip" x="132" y="78" width="104" height="25" rx="6"/><text class="lbl" x="144" y="95">Farmacia</text>
+        <rect class="chip" x="6"   y="114" width="104" height="25" rx="6"/><text class="lbl" x="18" y="131">MIPRES</text>
+        <rect class="chip" x="128" y="120" width="104" height="25" rx="6"/><text class="lbl" x="140" y="137">RIPS</text>
+        <g stroke="#cabfae" stroke-width="1.4" stroke-dasharray="4 4">
+          <line x1="110" y1="39" x2="128" y2="47"/><line x1="66" y1="51" x2="66" y2="70"/><line x1="110" y1="127" x2="128" y2="133"/>
+        </g>
+        <text x="6" y="172" class="cap" fill="#c0392b">NO SE CRUZAN A TIEMPO</text>
+        <g fill="#e6175c"><path d="M270 86 h34 v-9 l20 13.5 l-20 13.5 v-9 h-34 z"/></g>
+        <text class="cap" x="268" y="66" fill="#e6175c">INTEGRAR</text>
+        <rect x="350" y="50" width="150" height="74" rx="14" fill="#e6175c"/>
+        <text class="wlbl" x="425" y="82" text-anchor="middle">Fuente única</text>
+        <text class="wlbl" x="425" y="100" text-anchor="middle">de verdad</text>
+        <g stroke="#ffffff" stroke-width="2" opacity=".55"><line x1="372" y1="60" x2="478" y2="60"/><line x1="372" y1="114" x2="478" y2="114"/></g>
+        <g fill="#e6175c"><path d="M520 86 h30 v-9 l20 13.5 l-20 13.5 v-9 h-30 z"/></g>
+        <text class="cap" x="600" y="14">DECISIÓN A TIEMPO</text>
+        <rect x="600" y="26" width="224" height="132" rx="12" fill="#0b1c31"/>
+        <rect x="616" y="42" width="58" height="34" rx="6" fill="#16273f"/><text x="624" y="64" font-size="15" font-weight="800" fill="#e6175c">+85%</text>
+        <rect x="684" y="42" width="58" height="34" rx="6" fill="#16273f"/><text x="692" y="64" font-size="15" font-weight="800" fill="#fff">3,2×</text>
+        <circle cx="784" cy="59" r="17" fill="none" stroke="#26374f" stroke-width="6"/>
+        <circle cx="784" cy="59" r="17" fill="none" stroke="#e6175c" stroke-width="6" stroke-dasharray="80 107" transform="rotate(-90 784 59)"/>
+        <g><rect x="618" y="120" width="14" height="24" rx="2" fill="#e6175c"/><rect x="638" y="108" width="14" height="36" rx="2" fill="#e6175c"/><rect x="658" y="98" width="14" height="46" rx="2" fill="#e6175c"/><rect x="678" y="112" width="14" height="32" rx="2" fill="#e6175c"/></g>
+        <polyline points="712,138 736,124 760,130 784,110 808,116" fill="none" stroke="#7fd4c1" stroke-width="2.5"/>
+      </svg>
+      <p style="margin-top:8px;">Integrar HCE, ERP, facturación, MIPRES y RIPS en <b style="color:#152540">una sola fuente de verdad</b> cierra la brecha de los $25 billones en mora: el dato existía; faltó <b style="color:#152540">leerlo a tiempo</b>.</p>
+    </div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>03</span></div>
+</section>
+
+<!-- PAGE 04 — PRIORITIES -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">02 · Prioridades</div>
+  <h1 class="title">Necesidades estratégicas más comunes</h1>
+  <p class="sub">Seis frentes en los que la inteligencia de datos fortalece la gestión clínica, la salud financiera y el cumplimiento en una institución de salud.</p>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <div class="frente"><div class="h"><span class="num">1</span><h4>Gestión clínica y del riesgo del paciente</h4></div><p>Anticipar reingresos y descompensaciones de pacientes crónicos con datos integrados.</p></div>
+      <div class="frente"><div class="h"><span class="num">2</span><h4>Salud financiera: cartera y glosas</h4></div><p>Trazabilidad de facturación, RIPS y mora para recuperar cartera y reducir glosas.</p></div>
+      <div class="frente"><div class="h"><span class="num">3</span><h4>Automatización administrativa y asistencial</h4></div><p>Liberar las horas que hoy se pierden digitando RIPS, glosas, MIPRES y reportes.</p></div>
+      <div class="frente"><div class="h"><span class="num">4</span><h4>Visibilidad por rol directivo</h4></div><p>Tableros diferenciados para gerencia, dirección médica y dirección financiera.</p></div>
+      <div class="frente"><div class="h"><span class="num">5</span><h4>Cumplimiento e interoperabilidad</h4></div><p>Resolución 1888 (FHIR R4), Ley 2015, Habeas Data y estándares HIPAA / HITRUST.</p></div>
+      <div class="frente"><div class="h"><span class="num">6</span><h4>Anticipación con inteligencia artificial</h4></div><p>Predicción de reingresos y detección de anomalías en facturación.</p></div>
+    </div>
+    <div class="sidebox">
+      <div class="lab">Para quién es cada frente</div>
+      <h3>Según el rol en la institución</h3>
+      <div class="role"><b>Gerencia y comité directivo</b><span>Frentes 1, 4 y 6 — riesgo, visibilidad integral y anticipación.</span></div>
+      <hr>
+      <div class="role"><b>Dirección médica</b><span>Frentes 1, 3 y 6 — riesgo del paciente, asistencial y predicción de reingresos.</span></div>
+      <hr>
+      <div class="role"><b>Dirección financiera y auditoría</b><span>Frentes 2, 3 y 5 — cartera, glosas, RIPS y cumplimiento.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>04</span></div>
+</section>
+
+<!-- PAGE 05 — MODEL -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">03 · Modelo de respuesta</div>
+  <h1 class="title">Cómo responde la inteligencia de datos</h1>
+  <p class="sub">La transformación ocurre cuando centralización, automatización e inteligencia trabajan juntas sobre los sistemas que la institución ya tiene —sin reemplazarlos.</p>
+  <div class="rule"></div>
+  <div class="steps">
+    <div class="step"><div class="l"><div class="k">PASO 01</div><div class="name">Centralizar e integrar</div></div><div class="r">Databricks (Lakehouse, arquitectura Medallón) y Snowflake (certificaciones HITRUST y HIPAA) unifican HCE, ERP, facturación, farmacia, MIPRES y RIPS en una sola fuente de verdad, base técnica de la interoperabilidad FHIR R4. La HCE sigue funcionando; lo que cambia es la capacidad de cruzarla.</div></div>
+    <div class="step"><div class="l"><div class="k">PASO 02</div><div class="name">Automatizar y visualizar</div></div><div class="r">Power Automate (conector FHIRlink) y Power Apps (Dataverse Healthcare) eliminan la digitación; Power BI y Microsoft Fabric entregan tableros por rol, con cifrado y control de acceso conforme a HIPAA y la Ley 1581 de Habeas Data.</div></div>
+    <div class="step dark"><div class="l"><div class="k">PASO 03</div><div class="name">Anticipar con IA</div></div><div class="r">Azure ML predice reingresos y descompensaciones; Isolation Forest, autoencoders y XGBoost detectan anomalías de facturación. La gestión deja de reaccionar y empieza a anticipar con criterio clínico y financiero.</div></div>
+  </div>
+  <div class="objbar">
+    <div class="lab">Objetivos de referencia del modelo</div>
+    <div class="objrow">
+      <div class="o"><div class="v">+85%</div><p>Cobertura de fuentes integradas</p></div>
+      <div class="o"><div class="v">90 días</div><p>A retorno medible (piloto)</p></div>
+      <div class="o"><div class="v">3,2×</div><p>Velocidad del ciclo de reporte</p></div>
+    </div>
+    <div class="note">Metas típicas del modelo · no constituyen resultados garantizados</div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>05</span></div>
+</section>
+
+<!-- PAGE 06 — SOLUTIONS I -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">04 · Soluciones (I)</div>
+  <h1 class="title">Soluciones según la necesidad</h1>
+  <p class="sub">Relación entre cada necesidad de la institución de salud y la plataforma más adecuada para resolverla.</p>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <div class="solcard"><div class="h"><span class="num">1</span><h4>Fragmentación de datos</h4></div><div class="tag">› DATABRICKS · SNOWFLAKE</div><p>Lakehouse con arquitectura Medallón y certificaciones HITRUST/HIPAA para datos clínicos sensibles. Unifica más de 10 fuentes en una sola fuente de verdad y habilita la interoperabilidad FHIR R4 (Resolución 1888 de 2025).</p></div>
+      <div class="solcard"><div class="h"><span class="num">2</span><h4>Procesos manuales</h4></div><div class="tag">› POWER AUTOMATE · POWER APPS</div><p>Reconcilia RIPS, cruza facturas contra MIPRES, alerta inventarios críticos; el conector FHIRlink y Dataverse Healthcare aceleran apps de enfermería y check-in del paciente.</p></div>
+      <div class="solcard"><div class="h"><span class="num">3</span><h4>Información dispersa</h4></div><div class="tag">› POWER BI · MICROSOFT FABRIC</div><p>Tableros de ocupación de camas, cartera, glosas y reingresos por rol directivo, cifrados y conformes con HIPAA y la Ley 1581.</p></div>
+    </div>
+    <div class="sidebox">
+      <div class="lab">Qué habilita este bloque</div>
+      <h3>Una lectura directiva en tiempo real</h3>
+      <ul class="bullets">
+        <li>Visión clínica y financiera en una sola fuente de verdad.</li>
+        <li>Trazabilidad de cada factura, glosa y RIPS.</li>
+        <li>Horas liberadas del reporte manual hacia el paciente.</li>
+        <li>Cumplimiento e interoperabilidad por diseño.</li>
+      </ul>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:16px 0 12px;">
+      <div class="barlab">TABLERO CLÍNICO-FINANCIERO · EJEMPLO</div>
+      <svg viewBox="0 0 300 196" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+        <circle cx="46" cy="52" r="34" fill="none" stroke="#26374f" stroke-width="12"/>
+        <circle cx="46" cy="52" r="34" fill="none" stroke="#e6175c" stroke-width="12" stroke-linecap="round" stroke-dasharray="192 214" transform="rotate(-90 46 52)"/>
+        <text x="46" y="50" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">90%</text>
+        <text x="46" y="66" text-anchor="middle" font-size="8" letter-spacing="1" fill="#aeb6c2">FUENTES</text>
+        <text x="104" y="32" font-size="11" fill="#aeb6c2">Integración</text><text x="286" y="32" text-anchor="end" font-size="14" font-weight="800" fill="#e6175c">90%</text>
+        <line x1="104" y1="42" x2="286" y2="42" stroke="#26374f"/>
+        <text x="104" y="62" font-size="11" fill="#aeb6c2">Automatización</text><text x="286" y="62" text-anchor="end" font-size="14" font-weight="800" fill="#fff">80%</text>
+        <line x1="104" y1="72" x2="286" y2="72" stroke="#26374f"/>
+        <text x="104" y="92" font-size="11" fill="#aeb6c2">Trazabilidad</text><text x="286" y="92" text-anchor="end" font-size="14" font-weight="800" fill="#e6175c">95%</text>
+        <g fill="#e6175c"><rect x="8" y="150" width="20" height="34" rx="2"/><rect x="36" y="138" width="20" height="46" rx="2"/><rect x="64" y="118" width="20" height="66" rx="2"/><rect x="92" y="130" width="20" height="54" rx="2"/></g>
+        <text x="8" y="194" font-size="8" letter-spacing="1" fill="#5f6b7d">CARTERA POR EDAD</text>
+        <polyline points="140,182 170,160 200,168 230,140 258,150 288,126" fill="none" stroke="#7fd4c1" stroke-width="2.5"/>
+        <circle cx="288" cy="126" r="3.5" fill="#7fd4c1"/>
+        <text x="140" y="194" font-size="8" letter-spacing="1" fill="#5f6b7d">REINGRESOS</text>
+      </svg>
+      <div class="note" style="text-align:left;color:#5f6b7d;margin-top:6px;">Valores de referencia · ilustrativos</div>
+    </div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>06</span></div>
+</section>
+
+<!-- PAGE 07 — SOLUTIONS II -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">04 · Soluciones (II)</div>
+  <h1 class="title">Inteligencia que anticipa el riesgo y protege la cartera</h1>
+  <p class="sub">La capa de IA aplicada es donde el impacto se vuelve tangible: en el desenlace del paciente y en la recuperación de cada peso facturado.</p>
+  <div class="rule"></div>
+  <div class="cols">
+    <div>
+      <div class="solcard"><div class="h"><span class="num">4</span><h4>Reingresos y riesgo del paciente</h4></div><div class="tag">› AZURE MACHINE LEARNING</div><p>Predice con días de anticipación qué paciente crónico se descompensará o reingresará, cruzando historia clínica, signos vitales, adherencia farmacológica y antecedentes. Imperial College y Providence Health documentaron reducciones del 20–35% en reingresos evitables.</p></div>
+      <div class="solcard"><div class="h"><span class="num">5</span><h4>Anomalías en facturación</h4></div><div class="tag">› ISOLATION FOREST · AUTOENCODERS · XGBOOST</div><p>Aprenden el patrón normal de facturación y marcan lo que se desvía: duplicados, servicios a pacientes fallecidos, códigos que no corresponden al diagnóstico. Lo que tomaba meses de auditoría, ahora toma minutos.</p></div>
+      <div class="solcard"><div class="h"><span class="num">6</span><h4>IA sin código</h4></div><div class="tag">› AI BUILDER (POWER AUTOMATE)</div><p>Permite que cualquier área aplique IA sin programar: clasificar correos de pacientes, extraer datos de prescripciones manuscritas o reconocer firmas en consentimientos informados.</p></div>
+    </div>
+    <div class="sidebox">
+      <div class="lab">Qué fortalece este bloque</div>
+      <h3>De reaccionar a anticipar</h3>
+      <ul class="bullets">
+        <li>Pacientes en riesgo identificados antes del reingreso.</li>
+        <li>Facturas inconsistentes detectadas en minutos.</li>
+        <li>Cartera protegida y glosas reducidas.</li>
+        <li>Decisiones con horizonte clínico y financiero.</li>
+      </ul>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:16px 0 12px;">
+      <div class="barlab">MODELO PREDICTIVO · RIESGO DE REINGRESO</div>
+      <svg viewBox="0 0 300 190" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+        <line x1="22" y1="18" x2="22" y2="150" stroke="#26374f"/>
+        <line x1="22" y1="150" x2="292" y2="150" stroke="#26374f"/>
+        <line x1="22" y1="64" x2="292" y2="64" stroke="#e6175c" stroke-dasharray="5 5" opacity=".75"/>
+        <text x="26" y="60" font-size="9" font-weight="700" fill="#e6175c">umbral de alerta</text>
+        <g fill="#7fd4c1">
+          <circle cx="40" cy="120" r="4"/><circle cx="60" cy="134" r="4"/><circle cx="78" cy="108" r="4"/><circle cx="95" cy="140" r="4"/><circle cx="112" cy="122" r="4"/><circle cx="130" cy="132" r="4"/><circle cx="150" cy="112" r="4"/><circle cx="168" cy="138" r="4"/><circle cx="186" cy="120" r="4"/><circle cx="205" cy="128" r="4"/><circle cx="225" cy="142" r="4"/><circle cx="244" cy="116" r="4"/><circle cx="262" cy="130" r="4"/><circle cx="280" cy="122" r="4"/>
+        </g>
+        <g fill="#e6175c">
+          <circle cx="70" cy="46" r="5"/><circle cx="120" cy="34" r="5"/><circle cx="150" cy="52" r="5"/><circle cx="195" cy="40" r="5"/><circle cx="232" cy="30" r="5"/><circle cx="262" cy="50" r="5"/>
+        </g>
+        <g fill="none" stroke="#e6175c" stroke-width="1" opacity=".4"><circle cx="120" cy="34" r="9"/><circle cx="232" cy="30" r="9"/></g>
+        <circle cx="22" cy="180" r="5" fill="#e6175c"/><text x="34" y="184" font-size="10" fill="#aeb6c2">Riesgo alto</text>
+        <circle cx="150" cy="180" r="5" fill="#7fd4c1"/><text x="162" y="184" font-size="10" fill="#aeb6c2">Estable</text>
+      </svg>
+      <div class="note" style="text-align:left;color:#5f6b7d;margin-top:6px;">Visualización ilustrativa · pacientes priorizados</div>
+    </div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>07</span></div>
+</section>
+
+<!-- PAGE 08 — IMPACT -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">05 · Impacto</div>
+  <h1 class="title">Beneficios concretos para la institución</h1>
+  <p class="sub">La inteligencia de datos transforma la capacidad de dirección clínica y financiera, no solo la forma de reportar.</p>
+  <div class="rule"></div>
+  <div class="bcards">
+    <div class="bcard"><h4>Mejor desenlace clínico</h4><p>Pacientes en riesgo de reingreso identificados a tiempo para intervenir.</p></div>
+    <div class="bcard"><h4>Cartera y glosas bajo control</h4><p>Trazabilidad y anticipación sobre la mora, las glosas y los RIPS.</p></div>
+    <div class="bcard"><h4>Cumplimiento sin sobresaltos</h4><p>Información lista y verificable para la Supersalud, la ADRES y FHIR R4.</p></div>
+    <div class="bcard"><h4>Horas devueltas al paciente</h4><p>La automatización libera al equipo de la digitación hacia la atención.</p></div>
+  </div>
+  <div class="avd">
+    <div class="lab">Antes vs. después · referencia</div>
+    <div class="ttl">Mejora por dimensión</div>
+    <div class="dim"><div class="top"><span>Tiempo de consolidación de reportes</span><b>de 35 → 88</b></div><div class="track"><div class="fill" style="width:88%"></div></div></div>
+    <div class="dim"><div class="top"><span>Trazabilidad de facturación</span><b>de 40 → 92</b></div><div class="track"><div class="fill" style="width:92%"></div></div></div>
+    <div class="dim"><div class="top"><span>Anticipación de reingresos</span><b>de 25 → 82</b></div><div class="track"><div class="fill" style="width:82%"></div></div></div>
+    <div class="dim"><div class="top"><span>Calidad del dato clínico</span><b>de 45 → 93</b></div><div class="track"><div class="fill" style="width:93%"></div></div></div>
+    <div class="note" style="text-align:left;">Escala 0–100 · valores ilustrativos de referencia</div>
+  </div>
+  <div class="closing">Cuidar mejor al paciente, sostener la institución y rendir cuentas con datos a tiempo.</div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>08</span></div>
+</section>
+
+<!-- PAGE 09 — EVIDENCE -->
+<section class="page">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div class="eyebrow">06 · Evidencia</div>
+  <h1 class="title">Lo que cambia cuando los datos se integran</h1>
+  <p class="sub">Referencias reales de capacidades ya probadas en instituciones de salud, aplicables al contexto colombiano.</p>
+  <div class="rule"></div>
+  <div class="ev3">
+    <div class="evcard"><div class="v">20–35%</div><p>menos reingresos hospitalarios evitables. Imperial College (RU) y Providence Health (EE. UU.), actuando sobre alertas predictivas.</p></div>
+    <div class="evcard"><div class="v">+470.000</div><p>pacientes fallecidos facturados, detectados por cruce de datos. ADRES (Colombia).</p></div>
+    <div class="evcard"><div class="v">$200k → $14k</div><p>costo mensual de infraestructura tras migrar a Snowflake, con 50% más de almacenamiento (caso documentado).</p></div>
+  </div>
+  <div class="casecard">
+    <h3>Del Excel mensual al tablero en vivo</h3>
+    <p>Antes, cada área reportaba en su propio formato y el comité directivo esperaba semanas para una visión consolidada de la operación clínica y financiera. Tras integrar las fuentes (HCE, ERP, facturación, MIPRES, RIPS) y desplegar tableros de BI, la institución pasó a monitorear ocupación, cartera, glosas y reingresos en una sola vista.</p>
+    <div class="quote">"Dejamos de discutir qué cifra era la correcta y empezamos a decidir a qué paciente y a qué cuenta atender primero."</div>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>09</span></div>
+</section>
+
+<!-- PAGE 10 — CLOSE -->
+<section class="page dark">
+  <div class="logo"><b class="l1">BI</b><b class="l2">Consulting Lab</b></div>
+  <div style="margin-top:8px;"></div>
+  <div class="ckicker">CIERRE ESTRATÉGICO</div>
+  <h1 class="close">No cambia solo cómo se reporta a la Supersalud.<br><span class="f">Cambia cómo se cuida al paciente y se sostiene la institución.</span></h1>
+  <p class="close-sub">Integrar la historia clínica, el ERP, la facturación, MIPRES, los RIPS y los indicadores en una sola arquitectura analítica fortalece la decisión clínica, la salud financiera y el cumplimiento ante la Supersalud, la ADRES y los entes de control. En BI Consulting Lab no llegamos a vender tecnología: construimos, junto a ustedes, la arquitectura de datos que su institución necesita para los próximos diez años.</p>
+  <div class="cstats">
+    <div class="cstat"><div class="v">+85%</div><p>cobertura de fuentes integradas (objetivo del modelo).</p></div>
+    <div class="cstat"><div class="v">90 días</div><p>a retorno medible (piloto).</p></div>
+    <div class="cstat fuc"><div class="v">$25 B</div><p>la deuda del sistema, más de la mitad en mora. La presión no espera.</p></div>
+  </div>
+  <div class="cta">Agende su diagnóstico de madurez de datos →</div>
+  <div class="cta-opts">Conversación exploratoria (1 h) · Diagnóstico de madurez de datos · Demostración aplicada a un caso de su institución.</div>
+  <div class="contact">
+    <div class="c"><div class="l">CORREO</div><div class="v">sales@biconsultinglab.com</div></div>
+    <div class="c"><div class="l">WEB</div><div class="v">www.biconsultinglab.com</div></div>
+    <div class="c"><div class="l">TELÉFONO</div><div class="v">+57 300 912 1854</div></div>
+  </div>
+  <div class="sources">
+    <div class="l">FUENTES</div>
+    <p>Deuda del sistema de salud y mora (Supersalud y Ministerio de Salud). · Facturación a pacientes fallecidos detectada por cruce de datos (ADRES). · Reducción de reingresos evitables 20–35% (Imperial College, RU; Providence Health, EE. UU.). · Reducción de costos de infraestructura con Snowflake (caso documentado). · Marco normativo: Resolución 1888 de 2025 (HL7 FHIR R4), Ley 2015, Ley 1581 de Habeas Data, CONPES 4144; estándares HIPAA y HITRUST.</p>
+  </div>
+  <div class="foot"><span>BI CONSULTING LAB</span><i>Datos claros, decisiones inteligentes</i><span>10</span></div>
+</section>
+
+</body>
+</html>
